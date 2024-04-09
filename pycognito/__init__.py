@@ -343,6 +343,9 @@ class Cognito:
 
         if now > datetime.datetime.fromtimestamp(dec_access_token["exp"]):
             expired = True
+            # if username property is undefined, set it using the access token claim
+            if not self.username:
+                self.username = dec_access_token["cognito:username"]
             if renew:
                 self.renew_access_token()
         else:
