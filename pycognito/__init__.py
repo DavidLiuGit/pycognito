@@ -350,6 +350,8 @@ class Cognito:
                 self.renew_access_token()
         else:
             expired = False
+            if not self.username:
+                self.username = dec_access_token.get("username") or dec_access_token["cognito:username"]
         return expired
 
     def set_base_attributes(self, **kwargs):
